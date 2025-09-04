@@ -1,5 +1,10 @@
 # Sistema de Livraria
 
+## Participantes Do Projeto
+
+Igor Nascimento Belisario - GES - 603
+
+Nicholas Lima do Nascimento - GES - 697
 
 
 ## Escopo do Projeto

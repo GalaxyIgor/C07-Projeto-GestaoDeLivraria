@@ -15,7 +15,7 @@ CREATE TABLE EstoqueLivros(
     endereco VARCHAR(100) NOT NULL,
     UltimaMovimentacao VARCHAR(45) NOT NULL,
     
-    PRIMARY KEY (EstoqueLivros)
+    PRIMARY KEY (idEstoqueLivros)
 );
 
 CREATE TABLE DetalhesDoLivro(
@@ -53,16 +53,6 @@ CREATE TABLE Editora(
     cnpjEditora VARCHAR(20) NOT NULL UNIQUE,
     LocalEditora VARCHAR(45) NOT NULL,
     
-    PRIMARY KEY (idEditora, Autor_idAutor,EstoqueLivros_idEstoqueLivros)
-    
-);
-
-CREATE TABLE Editora(
-	idEditora INT NOT NULL,
-    nomeEditora VARCHAR(100) NOT NULL,
-    cnpjEditora VARCHAR(20) NOT NULL UNIQUE,
-    LocalEditora VARCHAR(45) NOT NULL,
-    
     PRIMARY KEY (idEditora)
     
 );
@@ -70,9 +60,9 @@ CREATE TABLE Editora(
 
 CREATE TABLE Pedido_has_Livro(
 	Pedido_idPedido INT NOT NULL,
-    Livro_idLivro VARCHAR(100) NOT NULL,
-    Livro_Editora_idEditora VARCHAR(20) NOT NULL UNIQUE,
-    quantidade VARCHAR(45) NOT NULL,
+    Livro_idLivro INT NOT NULL,
+    Livro_Editora_idEditora INT NOT NULL,
+    quantidade INT NOT NULL,
     
     PRIMARY KEY (Pedido_idPedido, Livro_idLivro,Livro_Editora_idEditora)
     

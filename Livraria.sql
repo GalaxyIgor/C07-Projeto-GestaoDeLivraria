@@ -1,4 +1,5 @@
 DROP DATABASE IF EXISTS livraria;
+SET SQL_SAFE_UPDATES = 0;
 CREATE DATABASE IF NOT EXISTS livraria;
 USE livraria;
 
@@ -237,7 +238,7 @@ DELIMITER $$
 CREATE PROCEDURE ObterLivrosPorAutor(IN autor_id INT)
 BEGIN
     SELECT
-        l.tituloLivro,
+        l.títuloLivro,
         e.nomeEditora,
         l.DataPublicacaoLivro
     FROM Livro l

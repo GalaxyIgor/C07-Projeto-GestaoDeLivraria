@@ -1,0 +1,67 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos de distribuição / build
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# Virtualenv
+.env
+.venv
+venv/
+ENV/
+env/
+pip-wheel-metadata/
+pip-log.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit tests / coverage
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+nosetests.xml
+coverage.xml
+htmlcov/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+.jupyter/
+
+# Logs
+*.log
+
+# IDEs e editores
+# VSCode
+.vscode/
+# PyCharm
+.idea/
+*.iml
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# mypy
+.mypy_cache/
+.dmypy.json
+
+# Pylint
+pylint-report.txt
+pylint-output.txt
+
+# Flask / Django / outros frameworks
+instance/
+*.sqlite3
+media/
+staticfiles/

@@ -1,0 +1,2 @@
+class AutorDAO():
+    print("AutorDAO")

@@ -1,0 +1,2 @@
+class EditoraDAO():
+    print("EditoraDAO")

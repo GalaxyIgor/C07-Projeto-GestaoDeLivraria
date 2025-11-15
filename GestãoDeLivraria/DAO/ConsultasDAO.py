@@ -1,0 +1,2 @@
+class ConsultaDAO():
+    print("ConsultaDAO")

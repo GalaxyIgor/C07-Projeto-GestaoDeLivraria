@@ -1,0 +1,2 @@
+class LivroDAO():
+    print("LivroDAO")

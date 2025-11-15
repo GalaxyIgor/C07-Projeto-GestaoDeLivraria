@@ -1,0 +1,2 @@
+class MenuPedidos():
+    print("MenuPedidos")

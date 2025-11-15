@@ -1,0 +1,2 @@
+class MenuEditoras():
+    print("MenuEditoras")

@@ -1,2 +1,2 @@
-class ConsultaDAO():
-    print("ConsultaDAO")
+class ConsultasDAO():
+    print("ConsultasDAO")

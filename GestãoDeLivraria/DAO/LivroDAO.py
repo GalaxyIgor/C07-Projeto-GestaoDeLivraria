@@ -1,2 +1,0 @@
-class LivroDAO():
-    print("LivroDAO")

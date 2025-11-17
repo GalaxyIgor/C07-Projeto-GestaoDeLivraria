@@ -1,2 +1,0 @@
-class ConsultasDAO():
-    print("ConsultasDAO")

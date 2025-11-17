@@ -1,2 +1,0 @@
-class MenuLivros():
-    print("MenuLivros")

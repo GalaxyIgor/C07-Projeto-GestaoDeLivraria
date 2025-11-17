@@ -8,14 +8,13 @@ class Conexao:
     """
     Gerencia a conexão com o banco de dados MySQL para a Livraria.
     """
-
+    
     # --- Configurações do Banco de Dados ---
-    # ATENÇÃO: Substitua os valores abaixo pelas suas credenciais
     HOST = 'localhost'
     DATABASE = 'livraria'
-    USER = 'root'  # Ou o usuário que você criou (ex: 'joao')
+    USER = 'root'
     PASSWORD = 'SUA_SENHA_AQUI'
-    PORT = 3306  # Porta padrão do MySQL, altere se necessário
+    PORT = 3306
 
     def __init__(self):
         """Inicializa a conexão como None."""
@@ -33,7 +32,7 @@ class Conexao:
                 port=self.PORT
             )
             if self.conexao.is_connected():
-                # print("Conexão com o MySQL estabelecida com sucesso!")
+                print("Conexão com o MySQL estabelecida com sucesso!")
                 return self.conexao
 
         except Error as e:
@@ -44,4 +43,4 @@ class Conexao:
         """Fecha a conexão com o banco de dados, se estiver aberta."""
         if self.conexao and self.conexao.is_connected():
             self.conexao.close()
-            # print("Conexão MySQL encerrada.")
+            print("Conexão MySQL encerrada.")

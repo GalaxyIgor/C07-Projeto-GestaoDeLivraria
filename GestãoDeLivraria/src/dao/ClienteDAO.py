@@ -1,0 +1,2 @@
+class ClienteDAO:
+    pass

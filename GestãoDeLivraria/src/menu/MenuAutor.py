@@ -1,5 +1,5 @@
-from dao.AutorDAO import AutorDAO
-from model.Autor import Autor
+from src.dao.AutorDAO import AutorDAO
+from src.model.Autor import Autor
 
 
 class MenuAutor:

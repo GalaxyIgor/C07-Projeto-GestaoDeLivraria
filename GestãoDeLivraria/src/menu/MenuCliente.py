@@ -52,7 +52,7 @@ class MenuAutor:
             for autor in clientes:
                 print(autor)
         else:
-            print("Nenhum autor encontrado.")
+            print("Nenhum cliente encontrado.")
 
     def atualizar_cliente(self):
         self.listar_clientes()  # Ajuda o usuário a ver os IDs

@@ -175,11 +175,14 @@ def inicializar_banco_de_dados():
         cursor = conn.cursor()
 
         print("\nInicializando e carregando dados base no banco de dados...")
-        
-        # Usa o argumento 'multi=True' para permitir que o conector processe múltiplos comandos SQL
-        # separados por ponto-e-vírgula em uma única chamada, resolvendo o erro de sintaxe.
-        cursor.execute(sql_script_completo)
-        
+
+        sql_comandos = sql_script_completo.split(";")
+
+        for comando in sql_comandos:
+            comando = comando.strip()
+            if comando:
+                cursor.execute(comando)
+                
         print("Banco de dados 'livraria' criado/selecionado.")
         conn.commit()
         print("✅ Inicialização do banco de dados concluída com sucesso (Tabelas e Dados base criados)!")

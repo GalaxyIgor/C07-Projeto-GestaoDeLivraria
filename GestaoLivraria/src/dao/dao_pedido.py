@@ -1,6 +1,6 @@
-from utils.conection import Conexao
+from src.utils.conection import Conexao
 from mysql.connector import Error
-from models.pedido import Pedido
+from src.models.pedido import Pedido
 
 
 class PedidoDAO:

@@ -1,6 +1,6 @@
-from utils.conection import Conexao
+from src.utils.conection import Conexao
 from mysql.connector import Error
-from models.cliente import Cliente
+from src.models.cliente import Cliente
 
 
 class ClienteDAO:

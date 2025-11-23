@@ -1,6 +1,6 @@
-from utils.conection import Conexao
+from src.utils.conection import Conexao
 from mysql.connector import Error
-from models.livro import Livro
+from src.models.livro import Livro
 
 
 class LivroDAO:

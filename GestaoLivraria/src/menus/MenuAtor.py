@@ -37,8 +37,9 @@ class MenuAutor:
             id_novo = int(input("ID do Autor (deve ser único): "))
             nome = input("Nome do Autor: ")
             nacionalidade = input("Nacionalidade: ")
-            novo_autor = Autor(id_novo, nome, nacionalidade)
-            self.autor_dao.inserir(novo_autor)
+            novo_autor = Autor(idAutor=id_novo,nomeAutor=nome, nacionalidadeAutor=nacionalidade)
+            
+            self.autor_dao.insert(novo_autor)
             
         except ValueError:
             print("ID deve ser um número inteiro.")

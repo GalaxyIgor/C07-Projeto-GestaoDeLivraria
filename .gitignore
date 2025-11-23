@@ -65,3 +65,7 @@ instance/
 *.sqlite3
 media/
 staticfiles/
+
+
+.pytest_cache
+*.pytest_cache

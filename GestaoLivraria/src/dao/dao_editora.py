@@ -1,6 +1,6 @@
-from utils.conection import Conexao
+from src.utils.conection import Conexao
 from mysql.connector import Error
-from models.editora import Editora
+from src.models.editora import Editora
 
 
 class EditoraDAO:

@@ -3,7 +3,6 @@ from datetime import date
 
 
 class Pedido(BaseModel):
-    idPedido: int
+    idPedido: int | None = None
     dataPedido: date
-    valorTotal: float
-    idCliente: int
+    valorTotal: float = 0.0

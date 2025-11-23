@@ -86,6 +86,7 @@ class MenuLivro:
 
     def atualizar(self):
         self.listar()
+        
         try:
             id_livro = int(input("ID do Livro a atualizar: "))
             livro = self.livro_dao.selecionar_por_id(id_livro)

@@ -117,13 +117,7 @@ class LivroDAO:
         sql = """
             UPDATE Livro SET
                 títuloLivro = %s,
-                DataPublicacaoLivro = %s,
-                precoLivro = %s,
-                estoqueLivro = %s,
-                PaginasLivro = %s,
-                Editora_idEditora = %s,
-                Autor_idAutor = %s,
-                EstoqueLivros_idEstoqueLivros = %s
+                precoLivro = %s
             WHERE idLivro = %s
         """
 

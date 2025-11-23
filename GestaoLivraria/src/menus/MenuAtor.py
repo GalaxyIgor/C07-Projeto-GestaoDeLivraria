@@ -65,8 +65,8 @@ class MenuAutor:
                 nova_nacionalidade = input(f"Nova Nacionalidade (atual: {autor_existente.nacionalidadeAutor}): ")
 
                 # Prepara o objeto para a atualização
-                autor_existente.setNomeAutor(novo_nome or autor_existente.nomeAutor)
-                autor_existente.nacionalidadeAutor = nova_nacionalidade or autor_existente.nacionalidadeAutor
+                autor_existente.nomeAutor = novo_nome
+                autor_existente.nacionalidadeAutor = nova_nacionalidade
 
                 self.autor_dao.atualizar(autor_existente)
             else:

@@ -21,7 +21,7 @@ Antes de instalar, verifique se vc tem as seguintes ferramentas:
 curl -sSL https://install.python-poetry.org | python3 -
 ```
 
-Add Poetry to PATH (if needed):
+Add Poetry p/ PATH (se nescessario):
 
 ``` bash
 export PATH="$HOME/.local/bin:$PATH"
@@ -32,14 +32,13 @@ export PATH="$HOME/.local/bin:$PATH"
 ``` powershell
 (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
 ```
-
-If the `poetry` command is not recognized, manually add it to PATH:
+Se o comando `poetry` não for reconhecido, adicione-o manualmente ao PATH:
 
     C:\Users\<YOUR_USERNAME>\AppData\Roaming\Python\Scripts
 
 ------------------------------------------------------------------------
 
-## 🚀 Running the project
+## 🚀 Rodando o Projeto
 
 Clone the repository:
 
@@ -48,13 +47,13 @@ https://github.com/GalaxyIgor/C07-Projeto-GestaoDeLivraria.git
 cd C07-Projeto-GestaoDeLivraria
 ```
 
-Install dependencies:
+Instalando as dependências:
 
 ``` bash
 poetry install
 ```
 
-Activate the virtual environment:
+Ativiando ambiente virtual:
 
 ``` bash
 poetry shell
@@ -62,15 +61,15 @@ poetry shell
 
 ------------------------------------------------------------------------
 
-## 🧪 Running scripts
+## 🧪 Rodando os Scripts
 
-Run tests:
+Rodadndo testes:
 
 ``` bash
 poetry run pytest
 ```
 
-Run application (example):
+Rodadndo apicações (exemplo):
 
 ``` bash
 poetry run python src/C07-Projeto-GestaoDeLivraria/GestaoLivraria/src/main.py

@@ -1,5 +1,5 @@
-from src.dao.AutorDAO import AutorDAO
-from src.model.Autor import Autor
+from src.models.autor import Autor
+from src.dao.dao_autor import AutorDAO
 
 
 class MenuAutor:
@@ -34,14 +34,12 @@ class MenuAutor:
     def inserir_autor(self):
         print("\n--- Inserir Autor ---")
         try:
-            # Note: Em um projeto real, você buscaria o próximo ID ou usaria AUTO_INCREMENT.
-            # Aqui, seguimos o seu modelo inicial de fornecer o ID.
             id_novo = int(input("ID do Autor (deve ser único): "))
             nome = input("Nome do Autor: ")
             nacionalidade = input("Nacionalidade: ")
-
             novo_autor = Autor(id_novo, nome, nacionalidade)
             self.autor_dao.inserir(novo_autor)
+            
         except ValueError:
             print("ID deve ser um número inteiro.")
 

@@ -2,10 +2,10 @@ from src.models.pedido import Pedido
 from src.dao.dao_pedido import PedidoDAO
 from src.dao.dao_cliente import ClienteDAO
 from src.dao.dao_livro import LivroDAO
-# Importar DAOs de relacionamento
-
 from src.dao.dao_cliente_has_pedido import ClientePedidoDAO 
 from src.dao.dao_pedido_has_livro import PedidoLivroDAO
+from datetime import datetime
+
 
 
 class MenuPedido:
@@ -14,10 +14,9 @@ class MenuPedido:
         self.pedido_dao = PedidoDAO()
         self.cliente_dao = ClienteDAO()
         self.livro_dao = LivroDAO()
-        # Adicionar DAOs de relacionamento
         self.cliente_pedido_dao = ClientePedidoDAO()
         self.pedido_livro_dao = PedidoLivroDAO()
-
+        
     def exibir_menu(self):
         # ... (Mantido sem alterações)
         while True:
@@ -47,47 +46,62 @@ class MenuPedido:
         print("\n--- Criar Pedido ---")
 
         try:
-            # 1. Obter informações básicas
+            # 1. Criação do Pedido (Valor inicial 0.0)
+            
             id_pedido = int(input("ID do Pedido (deve ser único): "))
-            data = input("Data do Pedido (YYYY-MM-DD): ")
-            valor_total = float(input("Valor Total (0.0 para calcular depois): "))
+            data = datetime.now().strftime("%Y-%m-%d")
+            
+            # Inicializa o pedido com valor zero, que será calculado ao adicionar itens
+            
+            novo_pedido = Pedido(idPedido=id_pedido,
+                                 dataPedido=data, 
+                                 valorTotal=0.0
+                                 )
+            
+            self.pedido_dao.insert(novo_pedido)
+            print(f"Pedido {id_pedido} criado com sucesso!")
 
-            # 2. Criar e inserir o objeto Pedido na tabela Pedido
-            novo_pedido = Pedido(idPedido=id_pedido, dataPedido=data, valorTotal=valor_total)
-            self.pedido_dao.insert(novo_pedido) # Usando .insert() para padronizar
-
-            # 3. Vincular Cliente (Usa Cliente_has_Pedido)
+            # 2. Vínculo Cliente-Pedido
             clientes = self.cliente_dao.selecionar_todos()
+            
             print("\nClientes:")
-            for c in clientes:
-                print(c)
+            for cliente in clientes:
+                print(cliente)
+                
             id_cliente = int(input("ID do cliente: "))
             self.cliente_pedido_dao.vincular_cliente_pedido(id_cliente, id_pedido)
             print("Cliente vinculado ao pedido.")
 
 
-            # 4. Adicionar Livro(s) (Usa Pedido_has_Livro)
+            # 3. Adicionar Livro (e calcular valor)
+            
             livros = self.livro_dao.selecionar_todos()
             print("\nLivros disponíveis:")
-            for l in livros:
-                print(l)
+            for livro in livros:
+                print(livro)
 
-            # Para simplificar, adicionamos um único livro no fluxo.
-            # Um loop pode ser adicionado para múltiplos livros.
             id_livro = int(input("ID do livro a adicionar: "))
             qtd = int(input("Quantidade: "))
 
-            # Para o Pedido_has_Livro, precisamos do Editora_idEditora do livro
-            livro = self.livro_dao.selecionar_por_id(id_livro)
+            livro_selecionado = self.livro_dao.selecionar_por_id(id_livro)
 
-            if livro:
-                id_editora = livro.Editora_idEditora
+            if livro_selecionado:
+                id_editora = livro_selecionado.Editora_idEditora
+                
                 self.pedido_livro_dao.adicionar_livro_pedido(id_pedido, id_livro, id_editora, qtd)
+                
+                # Calcula o valor total e atualiza o Pedido
+                valor_do_item = float(livro_selecionado.precoLivro) * qtd
+                novo_pedido.valorTotal = valor_do_item
+                self.pedido_dao.atualizar(novo_pedido) 
+                
                 print("Livro adicionado ao pedido.")
+                print(f"Valor total do pedido atualizado para: R$ {valor_do_item:.2f}")
+
             else:
                 print("Livro não encontrado. Item do pedido não adicionado.")
             
-            print("Pedido criado com sucesso!")
+            print("Processo de Pedido finalizado.")
 
         except ValueError:
             print("Valores de ID, Data ou Quantidade inválidos.")

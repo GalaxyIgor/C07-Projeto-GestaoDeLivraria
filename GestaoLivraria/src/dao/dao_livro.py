@@ -114,10 +114,17 @@ class LivroDAO:
 
     # ---------------- UPDATE ----------------
     def atualizar(self, livro: Livro):
+        # CORRIGIDO: SQL e tupla de valores alinhados para permitir atualização de todos os campos do Model
         sql = """
             UPDATE Livro SET
                 títuloLivro = %s,
-                precoLivro = %s
+                DataPublicacaoLivro = %s,
+                precoLivro = %s,
+                estoqueLivro = %s,
+                PaginasLivro = %s,
+                Editora_idEditora = %s,
+                Autor_idAutor = %s,
+                EstoqueLivros_idEstoqueLivros = %s
             WHERE idLivro = %s
         """
 
@@ -145,7 +152,7 @@ class LivroDAO:
             print(f"Erro ao atualizar livro: {e}")
         finally:
             self.db.fechar()
-
+            
     # ---------------- DELETE ----------------
     def deletar(self, idLivro: int):
         sql = "DELETE FROM Livro WHERE idLivro = %s"

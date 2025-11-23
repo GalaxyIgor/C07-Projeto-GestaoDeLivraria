@@ -24,7 +24,7 @@ class PedidoDAO:
             valores = (
                 pedido.idPedido,
                 pedido.dataPedido,
-                pedido.valorTotala
+                pedido.valorTotal 
             )
 
             cursor.execute(sql, valores)
@@ -39,7 +39,7 @@ class PedidoDAO:
     # ---------------- SELECT ALL ----------------
     def selecionar_todos(self):
         sql = """
-            SELECT idPedido, Cliente_idCliente, Livro_idLivro, quantidade, dataPedido
+            SELECT idPedido, dataPedido, valorTotal
             FROM Pedido
         """
         pedidos = []
@@ -52,10 +52,8 @@ class PedidoDAO:
             for row in cursor.fetchall():
                 pedidos.append(Pedido(
                     idPedido=row[0],
-                    Cliente_idCliente=row[1],
-                    Livro_idLivro=row[2],
-                    quantidade=row[3],
-                    dataPedido=row[4]
+                    dataPedido=row[1],
+                    valorTotal=float(row[2]) 
                 ))
 
             return pedidos
@@ -69,7 +67,7 @@ class PedidoDAO:
     # ---------------- SELECT BY ID ----------------
     def selecionar_por_id(self, idPedido: int):
         sql = """
-            SELECT idPedido, Cliente_idCliente, Livro_idLivro, quantidade, dataPedido
+            SELECT idPedido, dataPedido, valorTotal
             FROM Pedido WHERE idPedido = %s
         """
 
@@ -82,10 +80,8 @@ class PedidoDAO:
             if row:
                 return Pedido(
                     idPedido=row[0],
-                    Cliente_idCliente=row[1],
-                    Livro_idLivro=row[2],
-                    quantidade=row[3],
-                    dataPedido=row[4]
+                    dataPedido=row[1],
+                    valorTotal=float(row[2])
                 )
             return None
 
@@ -99,10 +95,8 @@ class PedidoDAO:
     def atualizar(self, pedido: Pedido):
         sql = """
             UPDATE Pedido SET
-                Cliente_idCliente = %s,
-                Livro_idLivro = %s,
-                quantidade = %s,
-                dataPedido = %s
+                dataPedido = %s,
+                valorTotal = %s
             WHERE idPedido = %s
         """
 
@@ -111,10 +105,8 @@ class PedidoDAO:
             cursor = conn.cursor()
 
             valores = (
-                pedido.Cliente_idCliente,
-                pedido.Livro_idLivro,
-                pedido.quantidade,
                 pedido.dataPedido,
+                pedido.valorTotal,
                 pedido.idPedido
             )
 

@@ -39,7 +39,7 @@ class MenuCliente:
             telefone = input("Telefone: ")
 
             cliente = Cliente(idCliente=idc, nomeCliente=nome, emailCliente=email, telefoneCliente=telefone)
-            self.cliente_dao.inserir(cliente)
+            self.cliente_dao.insert(cliente)
 
         except ValueError:
             print("ID deve ser inteiro.")

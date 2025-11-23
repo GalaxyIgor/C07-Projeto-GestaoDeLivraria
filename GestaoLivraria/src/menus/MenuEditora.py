@@ -42,7 +42,7 @@ class MenuEditora:
             nova = Editora(idEditora=id_editora, nomeEditora=nome,
                            cnpjEditora=cnpj, localEditora=local)
 
-            self.editora_dao.inserir(nova)
+            self.editora_dao.insert(nova)
             print("Editora inserida com sucesso!")
 
         except ValueError:

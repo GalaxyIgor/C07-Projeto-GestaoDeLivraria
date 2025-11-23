@@ -12,9 +12,9 @@ class PedidoDAO:
     def insert(self, pedido: Pedido):
         sql = """
             INSERT INTO Pedido (
-                idPedido, Cliente_idCliente, Livro_idLivro, quantidade, dataPedido
+                idPedido, dataPedido, valorTotal
             )
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s)
         """
 
         try:
@@ -23,10 +23,8 @@ class PedidoDAO:
 
             valores = (
                 pedido.idPedido,
-                pedido.Cliente_idCliente,
-                pedido.Livro_idLivro,
-                pedido.quantidade,
-                pedido.dataPedido
+                pedido.dataPedido,
+                pedido.valorTotala
             )
 
             cursor.execute(sql, valores)

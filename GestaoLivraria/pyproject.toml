@@ -14,7 +14,12 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "gestaolivraria", from = "src"}]
+packages = [
+    { include = "dao", from = "src" },
+    { include = "menus", from = "src" },
+    { include = "models", from = "src" },
+    { include = "utils", from = "src" }
+]
 
 
 [tool.poetry.group.dev.dependencies]

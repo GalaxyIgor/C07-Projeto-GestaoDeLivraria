@@ -104,7 +104,7 @@ class MenuPedido:
                 novo_pedido.valorTotal = valor_do_item
                 self.pedido_dao.atualizar(novo_pedido) 
                 
-                print("Livro adicionado ao pedido.")
+                print("Livro adicionado ao pedgido.")
                 print(f"Valor total do pedido atualizado para: R$ {valor_do_item:.2f}")
 
             else:

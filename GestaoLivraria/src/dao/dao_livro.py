@@ -168,3 +168,78 @@ class LivroDAO:
             print(f"Erro ao deletar livro: {e}. É possível que haja detalhes associados.")
         finally:
             self.db.fechar()
+    
+# ---------------- SELECT COM JOIN SEM TABELA INTERMEDIÁRIA ----------------
+def selecionar_livros_e_autores(self):
+    sql = """
+        SELECT l.títuloLivro, a.nomeAutor, a.nacionalidadeAutor
+        FROM Livro l
+        JOIN Autor a ON l.Autor_idAutor = a.idAutor
+    """
+    resultados = []
+    try:
+        conn = self.db.conectar()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            resultados.append({
+                "Titulo": row[0],
+                "Autor": row[1],
+                "Nacionalidade": row[2]
+            })
+        return resultados
+    except Error as e:
+        print(f"Erro ao buscar livros e autores: {e}")
+        return []
+    finally:
+        self.db.fechar()
+
+def selecionar_livros_e_editoras(self):
+    sql = """
+        SELECT l.títuloLivro, l.DataPublicacaoLivro, e.nomeEditora, e.LocalEditora
+        FROM Livro l
+        JOIN Editora e ON l.Editora_idEditora = e.idEditora
+    """
+    resultados = []
+    try:
+        conn = self.db.conectar()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            resultados.append({
+                "Titulo": row[0],
+                "Publicacao": row[1],
+                "Editora": row[2],
+                "Local": row[3]
+            })
+        return resultados
+    except Error as e:
+        print(f"Erro ao buscar livros e editoras: {e}")
+        return []
+    finally:
+        self.db.fechar()
+
+def selecionar_detalhes_do_livro(self):
+    sql = """
+        SELECT l.títuloLivro, d.Idioma, d.sinopseDetalhes, d.numPaginasDetalhes
+        FROM Livro l
+        JOIN DetalhesDoLivro d ON l.idLivro = d.Livro_idLivro
+    """
+    resultados = []
+    try:
+        conn = self.db.conectar()
+        cursor = conn.cursor()
+        cursor.execute(sql)
+        for row in cursor.fetchall():
+            resultados.append({
+                "Titulo": row[0],
+                "Idioma": row[1],
+                "Sinopse": row[2],
+                "Paginas_Detalhe": row[3]
+            })
+        return resultados
+    except Error as e:
+        print(f"Erro ao buscar detalhes do livro: {e}")
+        return []
+    finally:
+        self.db.fechar()

@@ -18,29 +18,38 @@ class MenuPedido:
         self.pedido_livro_dao = PedidoLivroDAO()
         
     def exibir_menu(self):
-        # ... (Mantido sem alterações)
-        while True:
-            print("\n--- Menu de Pedidos ---")
-            print("1. Criar Pedido")
-            print("2. Listar Pedidos")
-            print("3. Atualizar Pedido")
-            print("4. Excluir Pedido")
-            print("0. Voltar")
+            while True:
+                print("\n--- Menu de Pedidos ---")
+                print("1. Criar Pedido")
+                print("2. Listar Pedidos (Base)")
+                print("3. Atualizar Pedido")
+                print("4. Excluir Pedido")
+                print("--- Relatórios (JOINs Compostos) ---")
+                print("5. Resumo de Todos os Pedidos (Cliente/Valor)")
+                print("6. Detalhes de Livros em um Pedido (por ID)")
+                print("7. Listar Pedidos de um Cliente (por ID)")
+                print("0. Voltar")
 
-            opcao = input("Escolha: ")
+                opcao = input("Escolha: ")
 
-            if opcao == "1":
-                self.inserir()
-            elif opcao == "2":
-                self.listar()
-            elif opcao == "3":
-                self.atualizar()
-            elif opcao == "4":
-                self.excluir()
-            elif opcao == "0":
-                break
-            else:
-                print("Opção inválida.")
+                if opcao == "1":
+                    self.inserir()
+                elif opcao == "2":
+                    self.listar()
+                elif opcao == "3":
+                    self.atualizar()
+                elif opcao == "4":
+                    self.excluir()
+                elif opcao == "5":
+                    self.listar_resumo_pedidos() # NOVO
+                elif opcao == "6":
+                    self.listar_livros_por_pedido() # NOVO
+                elif opcao == "7":
+                    self.listar_pedidos_por_cliente() # NOVO
+                elif opcao == "0":
+                    break
+                else:
+                    print("Opção inválida.")
 
     def inserir(self):
         print("\n--- Criar Pedido ---")
@@ -143,5 +152,47 @@ class MenuPedido:
         try:
             id_pedido = int(input("ID do pedido a excluir: "))
             self.pedido_dao.deletar(id_pedido)
+        except ValueError:
+            print("ID inválido.")
+            
+    def listar_resumo_pedidos(self):
+        print("\n--- Resumo de Todos os Pedidos ---")
+        resultados = self.pedido_dao.selecionar_resumo_pedidos()
+        if resultados:
+            for item in resultados:
+                print(f"ID Pedido: {item['ID_Pedido']} | Data: {item['Data']} | Cliente: {item['Cliente']} | Valor: R$ {item['Valor_Total']:.2f}")
+        else:
+            print("Nenhum pedido encontrado.")
+
+    def listar_livros_por_pedido(self):
+        try:
+            id_pedido = int(input("ID do Pedido para detalhar os livros: "))
+            resultados = self.pedido_dao.selecionar_livros_por_pedido(id_pedido)
+            
+            if resultados:
+                print(f"\n--- Livros no Pedido {id_pedido} ---")
+                for item in resultados:
+                    subtotal = item['Quantidade'] * item['Preco_Unitario']
+                    print(f"Livro: {item['Livro']} | Qtd: {item['Quantidade']} | Preço Un: R$ {item['Preco_Unitario']:.2f} | Subtotal: R$ {subtotal:.2f}")
+            else:
+                print(f"Pedido {id_pedido} não encontrado ou sem itens.")
+        except ValueError:
+            print("ID inválido.")
+
+    def listar_pedidos_por_cliente(self):
+        try:
+            id_cliente = int(input("ID do Cliente para listar os pedidos: "))
+            cliente = self.cliente_dao.selecionar_por_id(id_cliente)
+            
+            if cliente:
+                resultados = self.pedido_dao.selecionar_pedidos_por_cliente(id_cliente)
+                print(f"\n--- Pedidos do Cliente: {cliente.nomeCliente} ---")
+                if resultados:
+                    for item in resultados:
+                        print(f"ID Pedido: {item['ID_Pedido']} | Data: {item['Data']} | Valor: R$ {item['Valor_Total']:.2f}")
+                else:
+                    print("Nenhum pedido encontrado para este cliente.")
+            else:
+                print("Cliente não encontrado.")
         except ValueError:
             print("ID inválido.")

@@ -23,7 +23,7 @@ class EditoraDAO:
                 editora.idEditora,
                 editora.nomeEditora,
                 editora.cnpjEditora,
-                editora.LocalEditora
+                editora.localEditora
             )
 
             cursor.execute(sql, valores)
@@ -53,7 +53,7 @@ class EditoraDAO:
                     idEditora=row[0],
                     nomeEditora=row[1],
                     cnpjEditora=row[2],
-                    LocalEditora=row[3]
+                    localEditora=row[3]
                 ))
 
             return editoras
@@ -81,7 +81,7 @@ class EditoraDAO:
                     idEditora=row[0],
                     nomeEditora=row[1],
                     cnpjEditora=row[2],
-                    LocalEditora=row[3]
+                    localEditora=row[3]
                 )
             return None
 
@@ -108,7 +108,7 @@ class EditoraDAO:
             valores = (
                 editora.nomeEditora,
                 editora.cnpjEditora,
-                editora.LocalEditora,
+                editora.localEditora,
                 editora.idEditora
             )
 

@@ -101,15 +101,34 @@ class MenuLivro:
         except Exception as e:
             print(f"Erro ao inserir Livro: {e}")
 
+
     def listar(self):
         print("\n--- Listar Livros (Base) ---")
         livros = self.livro_dao.selecionar_todos()
+        
         if livros:
+            print("-" * 75)
+            print(f"{'ID':<4} {'TÍTULO':<30} {'PREÇO':<10} {'ESTOQUE':<8} {'PUBLICADO EM':<15}")
+            print("-" * 75)
+            
             for livro in livros:
-                print(livro)
+                # 1. Extraindo apenas os campos essenciais para a listagem
+                titulo_curto = (livro.tituloLivro[:27] + '...') if len(livro.tituloLivro) > 30 else livro.tituloLivro
+                
+                # 2. Formatando e imprimindo a linha
+                print(
+                    f"{livro.idLivro:<4} "
+                    f"{titulo_curto:<30} "
+                    f"R$ {livro.precoLivro:<7.2f} " # Formatação para 2 casas decimais
+                    f"{livro.estoqueLivro:<8} "
+                    f"{livro.DataPublicacaoLivro.strftime('%Y-%m-%d'):<15}" # Formatação da data
+                )
+            print("-" * 75)
+            
         else:
             print("Nenhum livro encontrado na base de dados.")
-
+            
+            
     def atualizar(self):
         self.listar()
         print("\n--- Atualizar Livro ---")

@@ -43,15 +43,31 @@ class MenuCliente:
 
         except ValueError:
             print("ID deve ser inteiro.")
+            
 
     def listar(self):
-        clientes = self.cliente_dao.selecionar_todos()
-        if clientes:
-            for c in clientes:
-                print(c)
-        else:
-            print("Nenhum cliente encontrado.")
-
+            clientes = self.cliente_dao.selecionar_todos()
+            if clientes:
+                print("\n--- Lista de Clientes ---")
+                print("-" * 115)
+                print(f"{'ID':<4} {'NOME':<30} {'EMAIL':<40} {'TELEFONE':<15} {'PREMIUM':<10}")
+                print("-" * 115)
+                for cliente in clientes:
+                    email_curto = cliente.emailCliente[:37] + '...' if len(cliente.emailCliente) > 40 else cliente.emailCliente
+                    nome_curto = cliente.nomeCliente[:27] + '...' if len(cliente.nomeCliente) > 30 else cliente.nomeCliente
+                    
+                    print(
+                        f"{cliente.idCliente:<4} "
+                        f"{nome_curto:<30} "
+                        f"{email_curto:<40} "
+                        f"{cliente.telefoneCliente:<15} "
+                        f"{'SIM' if cliente.premiumCliente else 'NÃO':<10}"
+                    )
+                print("-" * 115)
+            else:
+                print("Nenhum cliente encontrado.")   
+                
+                  
     def atualizar(self):
         self.listar()
         try:

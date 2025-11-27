@@ -116,17 +116,7 @@ class MenuPedido:
             print("Valores de ID, Data ou Quantidade inválidos.")
         except Exception as e:
             print(f"Erro no processo de inserção do pedido: {e}")
-
-    def listar(self):
-        # O SELECT ALL do PedidoDAO foi simplificado para listar os dados da tabela Pedido.
-        # Para listar o resumo completo (como a VIEW no SQL), seria necessário um JOIN.
-        pedidos = self.pedido_dao.selecionar_todos()
-        if pedidos:
-            for p in pedidos:
-                print(p)
-        else:
-            print("Nenhum pedido encontrado.")
-
+            
     def atualizar(self):
         # ... (Atualizado para refletir o novo DAO de Pedido)
         self.listar()
@@ -154,16 +144,44 @@ class MenuPedido:
             self.pedido_dao.deletar(id_pedido)
         except ValueError:
             print("ID inválido.")
-            
-    def listar_resumo_pedidos(self):
-        print("\n--- Resumo de Todos os Pedidos ---")
-        resultados = self.pedido_dao.selecionar_resumo_pedidos()
-        if resultados:
-            for item in resultados:
-                print(f"ID Pedido: {item['ID_Pedido']} | Data: {item['Data']} | Cliente: {item['Cliente']} | Valor: R$ {item['Valor_Total']:.2f}")
+
+
+    def listar(self):
+        print("\n--- Listar Pedidos (Base) ---")
+        pedidos = self.pedido_dao.selecionar_todos()
+        if pedidos:
+            print("-" * 50)
+            print(f"{'ID':<4} {'DATA':<15} {'VALOR TOTAL':<15}")
+            print("-" * 50)
+            for p in pedidos:
+                print(
+                    f"{p.idPedido:<4} "
+                    f"{p.dataPedido.strftime('%Y-%m-%d'):<15} "
+                    f"R$ {p.valorTotal:<12.2f}"
+                )
+            print("-" * 50)
         else:
             print("Nenhum pedido encontrado.")
 
+    def listar_resumo_pedidos(self):
+        print("\n--- Resumo de Todos os Pedidos (Cliente/Valor) ---")
+        resultados = self.pedido_dao.selecionar_resumo_pedidos()
+        if resultados:
+            print("-" * 80)
+            print(f"{'ID PEDIDO':<10} {'CLIENTE':<30} {'DATA':<15} {'VALOR TOTAL':<15}")
+            print("-" * 80)
+            for item in resultados:
+                cliente_curto = item['Cliente'][:27] + '...' if len(item['Cliente']) > 30 else item['Cliente']
+                print(
+                    f"{item['ID_Pedido']:<10} "
+                    f"{cliente_curto:<30} "
+                    f"{item['Data'].strftime('%Y-%m-%d'):<15} "
+                    f"R$ {item['Valor_Total']:<12.2f}"
+                )
+            print("-" * 80)
+        else:
+            print("Nenhum pedido encontrado.")
+    
     def listar_livros_por_pedido(self):
         try:
             id_pedido = int(input("ID do Pedido para detalhar os livros: "))
@@ -171,9 +189,19 @@ class MenuPedido:
             
             if resultados:
                 print(f"\n--- Livros no Pedido {id_pedido} ---")
+                print("-" * 85)
+                print(f"{'LIVRO':<40} {'QTD':<5} {'PREÇO UN.':<15} {'SUBTOTAL':<15}")
+                print("-" * 85)
                 for item in resultados:
                     subtotal = item['Quantidade'] * item['Preco_Unitario']
-                    print(f"Livro: {item['Livro']} | Qtd: {item['Quantidade']} | Preço Un: R$ {item['Preco_Unitario']:.2f} | Subtotal: R$ {subtotal:.2f}")
+                    livro_curto = item['Livro'][:37] + '...' if len(item['Livro']) > 40 else item['Livro']
+                    print(
+                        f"{livro_curto:<40} "
+                        f"{item['Quantidade']:<5} "
+                        f"R$ {item['Preco_Unitario']:<12.2f} "
+                        f"R$ {subtotal:<12.2f}"
+                    )
+                print("-" * 85)
             else:
                 print(f"Pedido {id_pedido} não encontrado ou sem itens.")
         except ValueError:
@@ -187,9 +215,18 @@ class MenuPedido:
             if cliente:
                 resultados = self.pedido_dao.selecionar_pedidos_por_cliente(id_cliente)
                 print(f"\n--- Pedidos do Cliente: {cliente.nomeCliente} ---")
+                
                 if resultados:
+                    print("-" * 50)
+                    print(f"{'ID PEDIDO':<10} {'DATA':<15} {'VALOR TOTAL':<15}")
+                    print("-" * 50)
                     for item in resultados:
-                        print(f"ID Pedido: {item['ID_Pedido']} | Data: {item['Data']} | Valor: R$ {item['Valor_Total']:.2f}")
+                        print(
+                            f"{item['ID_Pedido']:<10} "
+                            f"{item['Data'].strftime('%Y-%m-%d'):<15} "
+                            f"R$ {item['Valor_Total']:<12.2f}"
+                        )
+                    print("-" * 50)
                 else:
                     print("Nenhum pedido encontrado para este cliente.")
             else:

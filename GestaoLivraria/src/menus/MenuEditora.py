@@ -48,15 +48,25 @@ class MenuEditora:
         except ValueError:
             print("ID deve ser um número.")
 
-    def listar_editoras(self):
-        editoras = self.editora_dao.selecionar_todos()
-        if editoras:
-            print("\n--- Lista de Editoras ---")
-            for ed in editoras:
-                print(ed)
-        else:
-            print("Nenhuma editora encontrada.")
 
+    def listar_editoras(self):
+            editoras = self.editora_dao.selecionar_todos()
+            if editoras:
+                print("\n--- Lista de Editoras ---")
+                print("-" * 80)
+                print(f"{'ID':<4} {'NOME DA EDITORA':<30} {'CNPJ':<20} {'LOCAL':<20}")
+                print("-" * 80)
+                for ed in editoras:
+                    nome_curto = ed.nomeEditora[:27] + '...' if len(ed.nomeEditora) > 30 else ed.nomeEditora
+                    print(
+                        f"{ed.idEditora:<4} "
+                        f"{nome_curto:<30} "
+                        f"{ed.cnpjEditora:<20} "
+                        f"{ed.localEditora:<20}"
+                    )
+                print("-" * 80)
+            else:
+                print("Nenhuma editora encontrada.") 
     def atualizar_editora(self):
         self.listar_editoras()
         try:

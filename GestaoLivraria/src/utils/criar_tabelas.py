@@ -48,8 +48,8 @@ def inicializar_banco_de_dados():
         EstoqueLivros_idEstoqueLivros INT NOT NULL,
         
         PRIMARY KEY (idLivro),
-        FOREIGN KEY (Editora_idEditora) REFERENCES Editora(idEditora),
-        FOREIGN KEY (Autor_idAutor) REFERENCES Autor(idAutor),
+        FOREIGN KEY (Editora_idEditora) REFERENCES Editora(idEditora) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (Autor_idAutor) REFERENCES Autor(idAutor)  ON DELETE CASCADE ON UPDATE CASCADE,
         FOREIGN KEY (EstoqueLivros_idEstoqueLivros) REFERENCES EstoqueLivros(idEstoqueLivros)
     );
 
@@ -80,8 +80,8 @@ def inicializar_banco_de_dados():
         Volume FLOAT NOT NULL,
         
         PRIMARY KEY (idDetalhesDoLivro),
-        FOREIGN KEY (Livro_idLivro) REFERENCES Livro(idLivro),
-        FOREIGN KEY (Livro_Editora_idEditora) REFERENCES Editora(idEditora)
+        FOREIGN KEY (Livro_idLivro) REFERENCES Livro(idLivro)  ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (Livro_Editora_idEditora) REFERENCES Editora(idEditora)  ON DELETE CASCADE ON UPDATE CASCADE
     );
 
     CREATE TABLE Cliente_has_Pedido(
@@ -89,8 +89,8 @@ def inicializar_banco_de_dados():
         Pedido_idPedido INT NOT NULL,
         
         PRIMARY KEY (Cliente_idCliente, Pedido_idPedido),
-        FOREIGN KEY (Cliente_idCliente) REFERENCES Cliente(idCliente),
-        FOREIGN KEY (Pedido_idPedido) REFERENCES Pedido(idPedido)
+        FOREIGN KEY (Cliente_idCliente) REFERENCES Cliente(idCliente)  ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (Pedido_idPedido) REFERENCES Pedido(idPedido)  ON DELETE CASCADE ON UPDATE CASCADE
     );
 
     CREATE TABLE Pedido_has_Livro(
@@ -100,9 +100,9 @@ def inicializar_banco_de_dados():
         quantidade INT NOT NULL,
         
         PRIMARY KEY (Pedido_idPedido, Livro_idLivro, Livro_Editora_idEditora),
-        FOREIGN KEY (Pedido_idPedido) REFERENCES Pedido(idPedido),
-        FOREIGN KEY (Livro_idLivro) REFERENCES Livro(idLivro),
-        FOREIGN KEY (Livro_Editora_idEditora) REFERENCES Editora(idEditora)
+        FOREIGN KEY (Pedido_idPedido) REFERENCES Pedido(idPedido)  ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (Livro_idLivro) REFERENCES Livro(idLivro)  ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (Livro_Editora_idEditora) REFERENCES Editora(idEditora) ON DELETE CASCADE ON UPDATE CASCADE
     );
     -- FIM DO DDL
 

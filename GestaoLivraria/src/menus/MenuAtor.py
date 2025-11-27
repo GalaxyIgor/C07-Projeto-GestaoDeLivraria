@@ -43,16 +43,25 @@ class MenuAutor:
             
         except ValueError:
             print("ID deve ser um número inteiro.")
-
+            
     def listar_autores(self):
-        autores = self.autor_dao.selecionar_todos()
-        if autores:
-            print("\n--- Lista de Autores ---")
-            for autor in autores:
-                print(autor)
-        else:
-            print("Nenhum autor encontrado.")
-
+            autores = self.autor_dao.selecionar_todos()
+            if autores:
+                print("\n--- Lista de Autores ---")
+                print("-" * 50)
+                print(f"{'ID':<4} {'NOME DO AUTOR':<30} {'NACIONALIDADE':<15}")
+                print("-" * 50)
+                for autor in autores:
+                    nome_curto = autor.nomeAutor[:27] + '...' if len(autor.nomeAutor) > 30 else autor.nomeAutor
+                    print(
+                        f"{autor.idAutor:<4} "
+                        f"{nome_curto:<30} "
+                        f"{autor.nacionalidadeAutor:<15}"
+                    )
+                print("-" * 50)
+            else:
+                print("Nenhum autor encontrado.")  
+                
     def atualizar_autor(self):
         self.listar_autores()  # Ajuda o usuário a ver os IDs
         try:
